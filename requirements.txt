@@ -4,7 +4,7 @@ langchain-community
 langchain
 audio-recorder-streamlit
 python-dotenv
-deepgram-sdk
+deepgram-sdk==2.12.0
 pydub
 openai
 langchain-anthropic
