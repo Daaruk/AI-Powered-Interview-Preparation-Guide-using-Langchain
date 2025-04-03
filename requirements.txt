@@ -7,3 +7,5 @@ python-dotenv
 deepgram-sdk
 pydub
 openai
+langchain-anthropic
+langchain-google-genai
