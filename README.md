@@ -88,18 +88,18 @@ To run this project locally, follow these steps:
 The AI-Powered Interview Preparation Guide achieves the following outcomes:
 
 <ul>
-    <li>**Improved Interview Skills**: By practicing interview questions and receiving immediate feedback, users can boost their confidence and improve their answers.</li>
-    <li>**Interactive Learning**: The speech input functionality ensures that the application is engaging and offers a realistic interview experience.</li>
-    <li>**Real-Time Feedback**: Immediate evaluations of responses help users identify areas of improvement on the spot, accelerating the learning process.</li>
+    <li><b>Improved Interview Skills</b>: By practicing interview questions and receiving immediate feedback, users can boost their confidence and improve their answers.</li>
+    <li><b>Interactive Learning</b>: The speech input functionality ensures that the application is engaging and offers a realistic interview experience.</li>
+    <li><b>Real-Time Feedback</b>: Immediate evaluations of responses help users identify areas of improvement on the spot, accelerating the learning process.</li>
 </ul>
 
 ## Future Enhancements
 
 <ul>
-    <li>**Advanced Personalization**: Implementing user profiles that track progress and suggest tailored interview questions based on past performance.</li>
-    <li>**Integration with Video**: Adding video recording features to simulate real-life interviews and allow for video-based feedback.</li>
-    <li>**Customizable Feedback**: Allow users to set specific criteria for feedback, such as focusing on tone, language, or content quality.</li>
-    <li>**Expanded Language Support**: Supporting multiple languages to cater to a wider audience.</li>
+    <li><b>Advanced Personalization</b>: Implementing user profiles that track progress and suggest tailored interview questions based on past performance.</li>
+    <li><b>Integration with Video</b>: Adding video recording features to simulate real-life interviews and allow for video-based feedback.</li>
+    <li><b>Customizable Feedback</b>: Allow users to set specific criteria for feedback, such as focusing on tone, language, or content quality.</li>
+    <li><b>Expanded Language Support</b>: Supporting multiple languages to cater to a wider audience.</li>
 </ul>
 
 ## Contributing
