@@ -1,0 +1,9 @@
+streamlit
+langchain-core
+langchain-community
+langchain
+audio-recorder-streamlit
+python-dotenv
+deepgram
+pydub
+openai
