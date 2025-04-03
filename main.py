@@ -155,6 +155,9 @@ prompt_info = [
     },
 ]
 
+# Initialize memory
+memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
+
 destinations_chain = {}
 
 behavioral_prompt = ChatPromptTemplate.from_template(behavioral_template)
@@ -166,14 +169,14 @@ problem_solving_prompt = ChatPromptTemplate.from_template(problem_solving_templa
 ethical_prompt = ChatPromptTemplate.from_template(ethical_template)
 communication_prompt = ChatPromptTemplate.from_template(communication_template)
 
-behavioral_chain = LLMChain(llm=openai, prompt=behavioral_prompt)
-technical_chain = LLMChain(llm=claude, prompt=technical_prompt)
-case_study_chain = LLMChain(llm=gemini, prompt=case_study_prompt)
-situational_chain = LLMChain(llm=openai, prompt=situational_prompt)
-leadership_chain = LLMChain(llm=claude, prompt=leadership_prompt)
-problem_solving_chain = LLMChain(llm=gemini, prompt=problem_solving_prompt)
-ethical_chain = LLMChain(llm=openai, prompt=ethical_prompt)
-communication_chain = LLMChain(llm=claude, prompt=communication_prompt)
+behavioral_chain = LLMChain(llm=openai, prompt=behavioral_prompt, memory=memory)
+technical_chain = LLMChain(llm=claude, prompt=technical_prompt, memory=memory)
+case_study_chain = LLMChain(llm=gemini, prompt=case_study_prompt, memory=memory)
+situational_chain = LLMChain(llm=openai, prompt=situational_prompt, memory=memory)
+leadership_chain = LLMChain(llm=claude, prompt=leadership_prompt, memory=memory)
+problem_solving_chain = LLMChain(llm=gemini, prompt=problem_solving_prompt, memory=memory)
+ethical_chain = LLMChain(llm=openai, prompt=ethical_prompt, memory=memory)
+communication_chain = LLMChain(llm=claude, prompt=communication_prompt, memory=memory)
 
 destinations_chain['behavioral'] = behavioral_chain
 destinations_chain['technical'] = technical_chain
@@ -209,9 +212,6 @@ chain = MultiPromptChain(router_chain=router_chain,
                          default_chain=default_chain,
                          verbose=True)
 
-# Initialize memory
-memory = ConversationBufferMemory(memory_key='chat_history', return_messages=True)
-
 # Streamlit UI
 st.set_page_config(page_title='AI-Powered Interview Coach', layout='wide')
 
@@ -232,11 +232,6 @@ if use_speech_input:
     
     # audio_bytes = st.audio(audio_recorder(), format="audio/wav")
     audio_bytes = audio_recorder()
-
-    # # Convert audio data into a WAV file using pydub
-    # if audio_input is not None:
-    #     # # Convert raw audio data into a WAV file using pydub
-    #     # audio_bytes = BytesIO(audio_input.getvalue())
         
     if audio_bytes:
         if isinstance(audio_bytes, bytes):
@@ -245,11 +240,6 @@ if use_speech_input:
             # Convert to WAV format with correct sample rate (16kHz recommended)
             audio = AudioSegment.from_file(audio_file, format='wav')
             audio = audio.set_frame_rate(16000).set_channels(1).set_sample_width(2)  # 16-bit PCM
-
-            # # Save the corrected WAV file
-            # with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
-            #     audio.export(temp_audio.name, format="wav")
-            #     temp_audio_path = temp_audio.name
             
             # Save the processed WAV file
             file_path = "user_answer.wav"
@@ -267,7 +257,7 @@ questions = ""
 # Generate Questions Button
 if generate_questions:
     query = str(user_query) + f"\nThe user is a {role} with {experience} experience and wants {difficulty} level interview questions."
-    
+
     with st.spinner("Generating interview questions..."):
         # Progress bar
         progress_bar = st.progress(0)
@@ -277,11 +267,13 @@ if generate_questions:
 
         result = chain.run(input=query)
         questions = result
-    
+
     st.subheader("📝 Generated Interview Questions")
     st.write(result)
 
 evaluate_answers = st.sidebar.button("Evaluate Answer")
+
+memory.save_context({"input": questions}, {"output": user_answer})
 
 # Evaluate Answer Button
 if evaluate_answers:
